@@ -10,8 +10,11 @@ from PIL import Image
 import pytesseract
 import os
 import openai
+from dotenv import dotenv_values
+config = dotenv_values(".env")
 
-openai.api_key = "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"
+#openai.api_key = ""
+openai.api_key = config["API_KEY"]
 pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 
 def extract_text(filepath, startpg=1, endpg=None):

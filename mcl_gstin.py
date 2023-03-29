@@ -75,5 +75,3 @@ def getGSTIN(filepath):
     else:
       gstin_extracted.append(g[0])
   return gstin_extracted
-
-getGSTIN("/content/gst.pdf")

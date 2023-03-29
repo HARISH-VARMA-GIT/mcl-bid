@@ -22,4 +22,5 @@ def extract_info_from_ca(filepath):
 def extract_info_from_legal(filepath):
     return mcll.extract_from_legal(filepath)
 
+print(extract_info_from_ca("D:\CV\Project\MCL\Govind Files\civil data1\CACERTIFICATE1920.pdf"))
 

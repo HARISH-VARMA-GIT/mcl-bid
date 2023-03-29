@@ -27,6 +27,3 @@ def extract_from_legal(filepath):
       if partnership[lead] < partnership[c]:
           lead = c
   return partnership, lead
-
-info = extract_from_legal("D:\\CV\\Project\\MCL\\Govind Files\\lab system\\mcl\\MCL data\\GODAWARI DEIFY SCMPL JV\\5_Legal_Status_of_the_bidder.pdf")
-print(info)

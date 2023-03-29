@@ -46,8 +46,3 @@ def extract_from_CA(filepath):
       "Type of work done": work_type
   }
   return info_extracted
-
-filepath = "D:\\CV\\Project\\MCL\\Govind Files\\civil data1\\CACERTIFICATE1920.pdf"
-
-info = extract_from_CA(filepath)
-print(info)

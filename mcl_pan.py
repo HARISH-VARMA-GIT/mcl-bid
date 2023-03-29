@@ -101,6 +101,3 @@ def getPAN(imagepath):
       pan.add(t[0])
   return pan
 
-pan = getPAN("D:\\CV\\Project\\MCL\\Govind Files\\lab system\\mcl\\MCL data\\GODAWARI DEIFY SCMPL JV\\3_Permanent_Account_Number.pdf") 
-# pass the document link to this function, it will automatically return the PAN number
-print(pan)
