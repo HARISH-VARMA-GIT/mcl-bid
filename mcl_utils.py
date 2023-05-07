@@ -9,17 +9,54 @@ import fitz
 from PIL import Image
 import pytesseract
 import os
+os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
+import requests
 import openai
-from dotenv import dotenv_values
-config = dotenv_values(".env")
+import io
+from dotenv import load_dotenv
 
-#openai.api_key = ""
-openai.api_key = config["API_KEY"]
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
+
+openai.api_key = API_KEY
 pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 
+def pdf2img(filepath):  
+  # ocr cannot work on pdf format. so converting it to a suitable image format
+    filestream = io.BytesIO(requests.get(filepath).content)
+    pdf_file = fitz.open(stream=filestream, filetype="pdf")
+    filename = filepath.split("//")[-1].split(".")[0]
+    images_extracted = []
+    # iterate over PDF pages
+    for page_index in range(len(pdf_file)):
+        # get the page itself
+        page = pdf_file[page_index]
+        image_list = page.get_images()
+        # printing number of images found in this page
+        if image_list:
+            print(f"[+] Found a total of {len(image_list)} images in page {page_index}")
+        else:
+            print("[!] No images found on page", page_index)
+        for image_index, img in enumerate(page.get_images(), start=1):
+            # get the XREF of the image
+            xref = img[0]
+            # extract the image bytes
+            base_image = pdf_file.extract_image(xref)
+            image_bytes = base_image["image"]
+            # get the image extension
+            image_ext = base_image["ext"]
+            # load it to PIL
+            image = Image.open(io.BytesIO(image_bytes))
+            # save it to local disk
+            image_name = f"{filename}P{page_index}I{image_index}.{image_ext}"
+            image.save(open(image_name, "wb"))
+            images_extracted.append(image_name)
+    return images_extracted
+
 def extract_text(filepath, startpg=1, endpg=None):
-  file = fitz.open(filepath)
-  filename = filepath.split("\\")[-1].split(".")[0]
+  filestream = io.BytesIO(requests.get(filepath).content)
+  file = fitz.open(stream=filestream, filetype="pdf")
+  filename = filepath.split("//")[-1].split(".")[0]
   fileloc = "\\".join(filepath.split("\\")[:-1])
   if endpg == None:
       endpg = len(file)
