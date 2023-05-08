@@ -14,6 +14,7 @@ import requests
 import openai
 import io
 from dotenv import load_dotenv
+import easyocr  # for optical character recognition
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
@@ -21,11 +22,16 @@ API_KEY = os.getenv('API_KEY')
 openai.api_key = API_KEY
 pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 
+def open_file_link(filepath):
+    filestream = io.BytesIO(requests.get(filepath).content)
+    file = fitz.open(stream=filestream, filetype="pdf")
+    filename = filepath.split("//")[-1].split(".")[0]
+    fileloc = "\\".join(filepath.split("\\")[:-1])
+    return file, filename, fileloc
+
 def pdf2img(filepath):  
   # ocr cannot work on pdf format. so converting it to a suitable image format
-    filestream = io.BytesIO(requests.get(filepath).content)
-    pdf_file = fitz.open(stream=filestream, filetype="pdf")
-    filename = filepath.split("//")[-1].split(".")[0]
+    pdf_file, filename, fileloc = open_file_link(filepath)
     images_extracted = []
     # iterate over PDF pages
     for page_index in range(len(pdf_file)):
@@ -54,10 +60,8 @@ def pdf2img(filepath):
     return images_extracted
 
 def extract_text(filepath, startpg=1, endpg=None):
-  filestream = io.BytesIO(requests.get(filepath).content)
-  file = fitz.open(stream=filestream, filetype="pdf")
-  filename = filepath.split("//")[-1].split(".")[0]
-  fileloc = "\\".join(filepath.split("\\")[:-1])
+  file, filename, fileloc = open_file_link(filepath)
+  print(filename)
   if endpg == None:
       endpg = len(file)
   text = ""
@@ -72,6 +76,14 @@ def extract_text(filepath, startpg=1, endpg=None):
       text += " -- " + page_text
       os.remove(img)
   return text
+
+def extract_text_easyocr(imagepath, sep=""):
+  reader = easyocr.Reader(['en'])
+  text_extracted = reader.readtext(imagepath, paragraph="False")
+  result = []
+  for txt in text_extracted:
+    result.append(txt[-1])
+  return result
 
 def get_answer(context, question):
   prompt = context + " What is the" + question + " in the above text? Say just the" + question + " in quotation marks or parentheses."

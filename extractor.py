@@ -37,6 +37,3 @@ Ananta OCP as per the instructions of Project
 Officer/Management of Ananta OCP, Jagannath Area, 
 MCL,"""
 
-filepath = "https://res.cloudinary.com/dauxdhnsr/image/upload/v1683097817/7_Affidavit_zhzf6p.pdf"
-attorneydoc = extract_from_affidavit(filepath, tender_desc)
-print(attorneydoc)
