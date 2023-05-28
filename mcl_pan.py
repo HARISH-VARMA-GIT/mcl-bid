@@ -7,6 +7,7 @@ def getPAN(imagepath):
                        "B": "8", "T": "7", "A": "4", "l": "1"}
   images = mclu.pdf2img(imagepath)
   pan = set()
+  
   for img in images:
     text = mclu.extract_text_easyocr(img)
     os.remove(img)

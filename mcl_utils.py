@@ -8,6 +8,7 @@ Created on Tue Mar 28 23:31:32 2023
 import fitz
 from PIL import Image
 import pytesseract
+import re
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 import requests
@@ -61,7 +62,6 @@ def pdf2img(filepath):
 
 def extract_text(filepath, startpg=1, endpg=None):
   file, filename, fileloc = open_file_link(filepath)
-  print(filename)
   if endpg == None:
       endpg = len(file)
   text = ""
@@ -85,17 +85,33 @@ def extract_text_easyocr(imagepath, sep=""):
     result.append(txt[-1])
   return result
 
-def get_answer(context, question):
-  prompt = context + " What is the" + question + " in the above text? Say just the" + question + " in quotation marks or parentheses."
-  return openai.ChatCompletion.create(
-      messages=[{
-          "role": "assistant",
-          "content": prompt
-      }],
-      temperature=0,
-      max_tokens=300,
-      top_p=1,
-      frequency_penalty=0,
-      presence_penalty=0,
-      model="gpt-3.5-turbo"
-  )["choices"][0]["message"]["content"]
+def get_answer(context, question, 
+               cleaning_text=r'"([^"]*)"', number=1):
+    prompt = context + " What is the" + question + " in the above text? Say just the" + question + " in quotation marks or parentheses."
+    answer = openai.ChatCompletion.create(
+        messages=[{
+            "role": "assistant",
+            "content": prompt
+        }],
+        temperature=0,
+        max_tokens=300,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0,
+        model="gpt-3.5-turbo"
+        )["choices"][0]["message"]["content"]
+    if cleaning_text == None:
+        return answer
+    answer = re.findall(cleaning_text, answer)
+  
+    if number == "all":
+        number = len(answer)
+    if number == 0:
+        return None
+    if len(answer) < number:
+      return None
+    else:
+        if number == 1:
+            return answer[0]
+        else:
+            return answer[: number]
