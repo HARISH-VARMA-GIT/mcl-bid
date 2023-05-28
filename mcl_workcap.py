@@ -5,8 +5,6 @@ import re
 
 def extract_workcap(filepath):
     filetext = mclu.extract_text(filepath, endpg=1)
-    print(mclu.get_answer(filetext, "working capital",
-                          cleaning_text=r"\d+.\d*"))
     cap = float(mclu.get_answer(filetext, "working capital",
                           cleaning_text=r"\d+.\d*")) * 10000000
     udin = re.findall(r'UDIN No[. ]*([A-Z0-9]+)', filetext)[0]
