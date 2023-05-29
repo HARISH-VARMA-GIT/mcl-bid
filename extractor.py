@@ -15,7 +15,10 @@ links = {
     "workcap": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1683525563/2_Working_Capital1_vv1t8f.pdf",
     "dsc": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1683525563/6_Digital_Signature_Certificate_va9fu0.pdf",
     "ca": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1683525563/CACERTIFICATE1920_vyuxuu.pdf",
-    "legal": "https://bidderdocbucket.s3.ap-south-1.amazonaws.com/5_Legal_Status_of_the_bidder+(1).pdf"
+    "legal": "https://bidderdocbucket.s3.ap-south-1.amazonaws.com/5_Legal_Status_of_the_bidder+(1).pdf",
+    "undertaking": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1685211070/8_Undertaking_mclgk2.pdf",
+    "nit": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1685207217/NIT_164_lgyba2.pdf",
+    "gtc": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1685384024/GTC_164_eaj1gd.pdf"
 }
 
 class CivilExtractor:
