@@ -31,7 +31,6 @@ def open_file_link(filepath):
     return file, filename, fileloc
 
 def pdf2img(filepath):  
-  # ocr cannot work on pdf format. so converting it to a suitable image format
     pdf_file, filename, fileloc = open_file_link(filepath)
     images_extracted = []
     # iterate over PDF pages
@@ -61,29 +60,29 @@ def pdf2img(filepath):
     return images_extracted
 
 def extract_text(filepath, startpg=1, endpg=None):
-  file, filename, fileloc = open_file_link(filepath)
-  if endpg == None:
-      endpg = len(file)
-  text = ""
-  images = []
-  for i in range(startpg-1, endpg):
-      pix = file[i].get_pixmap()
-      imgloc = fileloc + "\\" + filename + str(i) + ".jpg"
-      images.append(imgloc)
-      pix.save(imgloc, "JPEG")
-  for img in images:
-      page_text = pytesseract.image_to_string(Image.open(img))
-      text += " -- " + page_text
-      os.remove(img)
-  return text
+    file, filename, fileloc = open_file_link(filepath)
+    if endpg == None:
+        endpg = len(file)
+    text = ""
+    images = []
+    for i in range(startpg-1, endpg):
+        pix = file[i].get_pixmap()
+        imgloc = fileloc + "\\" + filename + str(i) + ".jpg"
+        images.append(imgloc)
+        pix.save(imgloc, "JPEG")
+    for img in images:
+        page_text = pytesseract.image_to_string(Image.open(img))
+        text += " -- " + page_text
+        os.remove(img)
+    return text
 
 def extract_text_easyocr(imagepath, sep=""):
-  reader = easyocr.Reader(['en'])
-  text_extracted = reader.readtext(imagepath, paragraph="False")
-  result = []
-  for txt in text_extracted:
-    result.append(txt[-1])
-  return result
+    reader = easyocr.Reader(['en'])
+    text_extracted = reader.readtext(imagepath, paragraph="False")
+    result = []
+    for txt in text_extracted:
+        result.append(txt[-1])
+    return result
 
 def get_answer(context, question, 
                cleaning_text=r'"([^"]*)"', number=1):
@@ -109,7 +108,7 @@ def get_answer(context, question,
     if number == 0:
         return None
     if len(answer) < number:
-      return None
+        return None
     else:
         if number == 1:
             return answer[0]
