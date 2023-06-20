@@ -40,7 +40,7 @@ def extract_from_legal(filepath):
   
   else:
       company = mclu.get_answer(filetext, "name of the company in the operation")
-      date = mclu.get_answer(filetext, "company formation date in dd/mm/yyyy format")
+      date = mclu.get_answer(filetext, "company formation date in dd/mm/yy format")
       output = {
                   "JV": False,
                   "name": company,

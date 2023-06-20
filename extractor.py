@@ -72,6 +72,3 @@ class CMCExtractor(Extractor):
     
     def check_undertaking(self, filepath):
         return mcl_under.compare_undertakings(filepath, self.gtc)
-    
-x = CivilExtractor(links["civil_nit"])
-print(x.extract_info_from_legal(links["civil_legal"]))
