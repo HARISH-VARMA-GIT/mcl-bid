@@ -14,7 +14,7 @@ def compare_genuineness(filepath, gtc_undertaking):
     nlp = spacy.load("en_core_web_lg") 
     # can change to en_core_web_md or en_core_web_md if problem in downloading
     rel = mclu.get_answer(bidder_undertaking,
-                          "does the compnay have any relative in mcl in yes or no?",
+                          "does the company have any relative in mcl in yes or no?",
                           cleaning_text=None)
     if "yes" in rel:
         rel = True
@@ -25,8 +25,17 @@ def compare_genuineness(filepath, gtc_undertaking):
         "any relatives": rel,
         "similarity": sim
     }
-"""
-TODO
-1. Letter of Bid
-2. Local content
-"""
+def extract_local_content(filepath):
+    filetext = mclu.extract_text(filepath)
+    local_content = mclu.get_answer(filetext, 
+                                    "amount of local content",
+                                    cleaning_text=r"(\d+)%")
+    if local_content > 50:
+        return "Class 1 Supplier"
+    elif local_content > 20:
+        return "Class 2 Supplier"
+    else:
+        return "Not Eligible"
+        
+    
+extract_local_content("https://res.cloudinary.com/dauxdhnsr/image/upload/v1687108302/mcl/Local_md3c9k.pdf")

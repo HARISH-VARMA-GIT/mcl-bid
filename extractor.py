@@ -20,7 +20,8 @@ links = {
     "cmc_nit": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1685207217/NIT_164_lgyba2.pdf",
     "cmc_gtc": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1685384024/GTC_164_eaj1gd.pdf",
     
-    "civil_legal": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230099/AllPartnershipDeed_sax5vl.pdf",
+    "civil_local": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1687108302/mcl/Local_md3c9k.pdf",
+    "civil_gtc": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230099/AllPartnershipDeed_sax5vl.pdf",
     "civil_ca": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1683525563/CACERTIFICATE1920_vyuxuu.pdf",
     "civil_gst": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230093/gst_q5gy9e.pdf",
     "civil_pan": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230092/PANCARD_zwer8f.pdf",
