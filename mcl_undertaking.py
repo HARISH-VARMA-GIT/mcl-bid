@@ -25,6 +25,7 @@ def compare_genuineness(filepath, gtc_undertaking):
         "any relatives": rel,
         "similarity": sim
     }
+
 def extract_local_content(filepath):
     filetext = mclu.extract_text(filepath)
     local_content = mclu.get_answer(filetext, 
@@ -36,6 +37,3 @@ def extract_local_content(filepath):
         return "Class 2 Supplier"
     else:
         return "Not Eligible"
-        
-    
-extract_local_content("https://res.cloudinary.com/dauxdhnsr/image/upload/v1687108302/mcl/Local_md3c9k.pdf")

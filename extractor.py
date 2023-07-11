@@ -54,13 +54,17 @@ class CivilExtractor(Extractor):
     def extract_attorney(self, filepath):
         return civ_attorney.extract_attorney(filepath)  
     
+    def extract_local_content(self, filepath):
+        return mcl_under.extract_local_content(filepath)
+    
+    
 class CMCExtractor(Extractor):   
     nit_desc = {}
     gtc = ""
     def __init__(self, nit_path, gtc_path) -> None:
         n = nit.CMCNITDoc(nit_path)
         self.nit_desc = n.extract_info()
-        self.gtc = mcl_under.extract_gtc_undertaking(gtc_path)
+        self.gtc = mcl_under.extract_gtc(gtc_path)
     
     def extract_from_affidavit(self, filepath):
         return mcla.extract_attorney_desc(filepath, self.nit_desc["Work Description"])
@@ -72,4 +76,4 @@ class CMCExtractor(Extractor):
         return mclw.extract_workcap(filepath)
     
     def check_undertaking(self, filepath):
-        return mcl_under.compare_undertakings(filepath, self.gtc)
+        return mcl_under.compare_genuineness(filepath, self.gtc)
