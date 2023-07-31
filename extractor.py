@@ -8,6 +8,7 @@ import mcl_workcap as mclw
 import nit
 import mcl_undertaking as mcl_under
 import civil_attorney as civ_attorney
+import gem_udayam 
 
 links = {
     "cmc_gst": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1683525563/4_GST_registration_m6gmz8.pdf",
@@ -77,3 +78,8 @@ class CMCExtractor(Extractor):
     
     def check_undertaking(self, filepath):
         return mcl_under.compare_genuineness(filepath, self.gtc)
+    
+
+class GEMExtractor(Extractor):
+    def extract_from_udayam(self,filepath):
+        return gem_udayam.extract_udayam(filepath)
