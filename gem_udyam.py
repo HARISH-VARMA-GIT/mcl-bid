@@ -2,7 +2,7 @@ import mcl_utils as mclu
 import re
 import os
 
-def extract_udayam(filepath):
+def extract_udyam(filepath):
     activity_dictionary = {
         49: "Land transport and transport via pipelines",
         58: "Publishing activities",

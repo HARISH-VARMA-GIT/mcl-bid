@@ -8,7 +8,8 @@ import mcl_workcap as mclw
 import nit
 import mcl_undertaking as mcl_under
 import civil_attorney as civ_attorney
-import gem_udayam 
+import gem_udyam
+import gem_tech_compare as getc 
 
 links = {
     "cmc_gst": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1683525563/4_GST_registration_m6gmz8.pdf",
@@ -30,7 +31,9 @@ links = {
     "civil_nit": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230092/Tendernotice_3_3_phbxvz.pdf",
     "civil_affidavit": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230093/POWEROFATTORNEYARUNVERMA2021_on0z1f.pdf",
 
-    "gem_udayam": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1690821300/mcl/1665399648_UDYAM_qt71h3.pdf"
+    "gem_udyam": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1691221391/mcl/1665400660_loei8r.pdf",
+    "gem_tech_compare": "https://res.cloudinary.com/dvxhxquyh/image/upload/v1692598089/ANANTA_SALES_ekgrpu.pdf"
+
 }
 
 class Extractor:
@@ -84,4 +87,8 @@ class CMCExtractor(Extractor):
 
 class GEMExtractor(Extractor):
     def extract_from_udayam(self,filepath):
-        return gem_udayam.extract_udayam(filepath)
+        return gem_udyam.extract_udyam(filepath)
+    
+    def compare_technical_specs(self,filepath):
+        return getc.compare(filepath)
+
