@@ -28,7 +28,9 @@ links = {
     "civil_pan": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230092/PANCARD_zwer8f.pdf",
     "civil_undertaking": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230093/Undertaking_tffghb.pdf",
     "civil_nit": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230092/Tendernotice_3_3_phbxvz.pdf",
-    "civil_affidavit": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230093/POWEROFATTORNEYARUNVERMA2021_on0z1f.pdf"
+    "civil_affidavit": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1686230093/POWEROFATTORNEYARUNVERMA2021_on0z1f.pdf",
+
+    "gem_udayam": "https://res.cloudinary.com/dauxdhnsr/image/upload/v1690821300/mcl/1665399648_UDYAM_qt71h3.pdf"
 }
 
 class Extractor:

@@ -31,3 +31,4 @@ def getPAN(imagepath):
     
   return pan
 
+print(getPAN("https://res.cloudinary.com/dvxhxquyh/image/upload/v1692089894/3_pan_164_czjb5w.pdf"))

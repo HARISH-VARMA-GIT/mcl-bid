@@ -1,4 +1,5 @@
 import re
+import PIL
 import camelot as cam
 
 class CMCNITDoc: 

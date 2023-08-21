@@ -31,3 +31,5 @@ def getGSTIN(filepath):
     else:
       gstin_extracted.append(g[0])
   return gstin_extracted
+
+print(getGSTIN("https://res.cloudinary.com/dvxhxquyh/image/upload/v1692089800/4_Status_of_gst_164_c0lqgs.pdf"))

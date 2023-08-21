@@ -8,6 +8,7 @@ def extract_workcap(filepath):
     filetext = mclu.extract_text(filepath, endpg=1)
     cap = float(mclu.get_answer(filetext, "working capital",
                           cleaning_text=r"\d+.\d*")) * 10000000
+    
     udin = re.findall(r'UDIN No[. ]*([A-Z0-9]+)', filetext)[0]
     doctype = mclu.get_answer(filetext, "the document is about")
     time.sleep(60)
@@ -21,3 +22,4 @@ def extract_workcap(filepath):
         "Certificate Issue Date": issue_date
     }
 
+print(extract_workcap("https://res.cloudinary.com/dvxhxquyh/image/upload/v1692089975/2_working_capital_164_ovwyak.pdf"))

@@ -11,6 +11,7 @@ def extract_gtc(gtc_path):
 
 def compare_genuineness(filepath, gtc_undertaking):
     bidder_undertaking = mclu.extract_text(filepath, endpg=1)
+    print(bidder_undertaking)
     nlp = spacy.load("en_core_web_lg") 
     # can change to en_core_web_md or en_core_web_md if problem in downloading
     rel = mclu.get_answer(bidder_undertaking,
@@ -37,3 +38,6 @@ def extract_local_content(filepath):
         return "Class 2 Supplier"
     else:
         return "Not Eligible"
+    
+#print(compare_genuineness("https://res.cloudinary.com/dauxdhnsr/image/upload/v1685211070/8_Undertaking_mclgk2.pdf","https://res.cloudinary.com/dauxdhnsr/image/upload/v1685384024/GTC_164_eaj1gd.pdf"))
+print(extract_gtc("https://res.cloudinary.com/dauxdhnsr/image/upload/v1685384024/GTC_164_eaj1gd.pdf"))

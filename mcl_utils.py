@@ -16,6 +16,7 @@ import openai
 import io
 from dotenv import load_dotenv
 import easyocr  # for optical character recognition
+import tempfile
 
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
@@ -67,7 +68,8 @@ def extract_text(filepath, startpg=1, endpg=None):
     images = []
     for i in range(startpg-1, endpg):
         pix = file[i].get_pixmap()
-        imgloc = fileloc + "\\" + filename + str(i) + ".jpg"
+        imgloc = "C:\MCL_project\mcl-bid"+ "\\" + filename + str(i) + ".jpg"
+        print(imgloc)
         images.append(imgloc)
         pix.save(imgloc, "JPEG")
     for img in images:
@@ -76,7 +78,7 @@ def extract_text(filepath, startpg=1, endpg=None):
         os.remove(img)
     return text
 
-def extract_text_easyocr(imagepath, sep=""):
+def extract_text_easyocr(imagepath):
     reader = easyocr.Reader(['en'])
     text_extracted = reader.readtext(imagepath, paragraph="False")
     result = []
@@ -102,7 +104,7 @@ def get_answer(context, question,
     if cleaning_text == None:
         return answer
     answer = re.findall(cleaning_text, answer)
-  
+    
     if number == "all":
         number = len(answer)
     if number == 0:
