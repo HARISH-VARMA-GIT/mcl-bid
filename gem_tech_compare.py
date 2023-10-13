@@ -3,26 +3,33 @@ import tabula
 import pandas as pd
 from io import BytesIO
 
+def process_table_cell(cell):
+    # Check if the cell is a string
+    if isinstance(cell, str):
+        # Replace newline characters with spaces and remove any extra spaces
+        return cell.replace('\r', ' ').strip()
+    else:
+        return cell
+
 def compare(filepath):
     pdf_url = filepath
-    # Send a GET request to the PDF URL
     response = requests.get(pdf_url)
-
-    # Create a file-like object from the PDF content
     pdf_file = BytesIO(response.content)
-
-    # Extract tabular data from the PDF using tabula
-    tables = tabula.read_pdf(pdf_file, pages='all', multiple_tables=True)
-
-    # Initialize an empty DataFrame
+    
+    try:
+        tables = tabula.read_pdf(pdf_file, pages='all', multiple_tables=True, area=[124, 40, 800, 900])
+    except Exception as e:
+        print("Error extracting tables:", e)
+        return
+    
     dataframes = []
-
-    # Convert each table into a DataFrame
+    
     for table in tables:
-        df = pd.DataFrame(table)
+        # Process table cells to replace newlines with spaces
+        processed_table = [[process_table_cell(cell) for cell in row] for row in table.values]
+        df = pd.DataFrame(processed_table, columns=table.columns)
         dataframes.append(df)
-
-    # Assuming you want to combine all tables into one DataFrame
+    
     combined_dataframe = pd.concat(dataframes, ignore_index=True)
 
     #print(combined_dataframe)
@@ -31,6 +38,8 @@ def compare(filepath):
 
     # Exclude first and last rows
     data_to_compare = combined_dataframe.iloc[1:-1]
+
+    print(data_to_compare)
 
     # Initialize a list to store unsatisfied specifications
     unsatisfied_specifications = []
@@ -42,7 +51,7 @@ def compare(filepath):
 
     # Compare Bid Requirement and Offered columns for each specification
     for idx, row in data_to_compare.iterrows():
-        if row[specification_index] == "Type of car (Please select at least 3 options)":
+        if idx==1:
             bid_cars = row[bid_requirement_index].replace(',', '').replace(' ', '')
             offered_cars = row[offered_index].replace(',', '').replace(' ', '')
             if not offered_cars in bid_cars:
@@ -55,5 +64,8 @@ def compare(filepath):
         print("Satisfied: All specifications have matching Bid Requirement and Offered values.")
     else:
         print("Not Satisfied: Specifications with mismatched Bid Requirement and Offered values:", unsatisfied_specifications)
+
+
+compare("https://res.cloudinary.com/dvxhxquyh/image/upload/v1693124799/ODISHA_TRAVELS_kgpt4b.pdf")
     
 

@@ -57,4 +57,4 @@ def extract_udyam(filepath):
         print(info_extracted)
 
 pdf_url = "https://res.cloudinary.com/dauxdhnsr/image/upload/v1691221391/mcl/1665400660_loei8r.pdf"
-extract_udayam(pdf_url)
+extract_udyam(pdf_url)
